@@ -9,8 +9,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const options = new DocumentBuilder()
-    .setTitle('')
-    .setDescription('')
+    .setTitle('admin')
+    .setDescription('admin description')
     .setVersion('1.0.0')
     .addBearerAuth()
     .build();

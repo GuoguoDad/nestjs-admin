@@ -1,6 +1,7 @@
 import { DataSource } from 'typeorm';
 import { Users } from '../entity/user.entity';
 import { ConfigService } from 'src/service/config.service';
+import { HourlyFileLogger } from '../infrastructure/logger/hourly.file.logger';
 
 export const DatabaseProvider = {
   provide: 'CommonDataSource',
@@ -15,7 +16,10 @@ export const DatabaseProvider = {
       entities: [Users],
       synchronize: true,
       logging: ['query', 'error'],
-      logger: 'file',
+      logger: new HourlyFileLogger(
+        ['query', 'error', 'info', 'warn'],
+        './logs',
+      ),
     });
     return AppDataSource.initialize();
   },
