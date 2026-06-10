@@ -3,19 +3,16 @@ import {
   UseGuards,
   Get,
   Post,
-  UseInterceptors,
 } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 
 import { EmailService } from '../service/email.service';
 import { SessionUser } from '../infrastructure/decorator/session.decorator';
-import { LoggingInterceptor } from '../infrastructure/interceptor/logging.interceptor';
 import { Users } from '../entity/user.entity';
 import { UserService } from '../service/user.service';
 
 @UseGuards(AuthGuard())
-@UseInterceptors(new LoggingInterceptor())
 @ApiBearerAuth()
 @Controller('test')
 export class TestController {
