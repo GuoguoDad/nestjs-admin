@@ -19,7 +19,7 @@ export class UploadController {
   })
   @Post('file')
   @UseInterceptors(FileInterceptor('file'))
-  async uploadFile(@UploadedFile() file: any) {
+  async uploadFile(@UploadedFile() file: Express.Multer.File) {
     return await this.uploadService.upload(file)
   }
 
@@ -31,7 +31,7 @@ export class UploadController {
   })
   @Post('files')
   @UseInterceptors(FilesInterceptor('files'))
-  async uploadFiles(@UploadedFiles() files: any[]) {
+  async uploadFiles(@UploadedFiles() files: Express.Multer.File[]) {
     if (files.length === 0) {
       throw new ApiException('参数有误')
     }

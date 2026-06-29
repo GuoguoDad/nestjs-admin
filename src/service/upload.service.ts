@@ -8,7 +8,7 @@ import { uploadResponse } from './interface/upload.interface'
 
 @Injectable()
 export class UploadService {
-  upload(file): Promise<uploadResponse> {
+  upload(file: Express.Multer.File): Promise<uploadResponse> {
     return new Promise((resolve, reject) => {
       const originalname = Buffer.from(file.originalname, 'latin1').toString('utf8')
       const name = `${dayjs().format('HHmmssSSS')}-${originalname}`
