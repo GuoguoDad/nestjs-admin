@@ -1,27 +1,27 @@
 export interface iMailOptions {
-    from: String;
-    to: String;
-    subject: String;
-    text?: String;
-    html?: String;
-    attachments?: file[]
+  from: string
+  to: string
+  subject: string
+  text?: string
+  html?: string
+  attachments?: file[]
 }
 
 export interface iContent {
-    transport?: 'default' | 'smtp';
-    target: String; //多个用逗号隔开，例如 '19941558406@163.com,447092991@qq.com'
-    title: String;
-    text?: String;
-    html?: String;
-    attachments?: file[]
+  transport?: 'default' | 'smtp'
+  target: string //多个用逗号隔开，例如 '19941558406@163.com,447092991@qq.com'
+  title: string
+  text?: string
+  html?: string
+  attachments?: file[]
 }
 
 export interface file {
-    filename: String;
-    path: String;
+  filename: string
+  path: string
 }
 
 export interface iResult {
-    httpCode: Number;
-    message: any;
+  httpCode: number
+  message: any
 }

@@ -1,11 +1,11 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger'
 
 export class FileUploadReq {
-    @ApiProperty({ type: 'string', format: 'binary' })
-    file: any;
+  @ApiProperty({ type: 'string', format: 'binary' })
+  file: any
 }
 
 export class FilesUploadReq {
-    @ApiProperty({type: 'string', format: 'binary' })
-    files: any[];
+  @ApiProperty({ type: 'string', format: 'binary' })
+  files: any[]
 }

@@ -1,16 +1,11 @@
-import {
-  Controller,
-  UseGuards,
-  Get,
-  Post,
-} from '@nestjs/common';
-import { ApiBearerAuth } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
+import { Controller, UseGuards, Get, Post } from '@nestjs/common'
+import { ApiBearerAuth } from '@nestjs/swagger'
+import { AuthGuard } from '@nestjs/passport'
 
-import { EmailService } from '../service/email.service';
-import { SessionUser } from '../infrastructure/decorator/session.decorator';
-import { Users } from '../entity/user.entity';
-import { UserService } from '../service/user.service';
+import { EmailService } from '../service/email.service'
+import { SessionUser } from '../infrastructure/decorator/session.decorator'
+import { Users } from '../entity/user.entity'
+import { UserService } from '../service/user.service'
 
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
@@ -23,13 +18,13 @@ export class TestController {
 
   @Get('/query/current/user')
   queryCurrentUser(@SessionUser() user: Users) {
-    console.log(user);
+    console.log(user)
   }
 
   @Post('/queryAllUsers')
   // @UseGuards(AuthGuard())
   async queryAllUsers() {
-    return await this.userService.findAll();
+    return await this.userService.findAll()
   }
 
   @Post('/sendEmail')
@@ -45,6 +40,6 @@ export class TestController {
           path: 'https://common.ihomefnt.com/nor/wework/constructionReform/3008897582561d71b7128c3ddf15651ccf687d4f9648f3c764711e6070d74f04.docx',
         },
       ],
-    });
+    })
   }
 }

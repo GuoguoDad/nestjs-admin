@@ -1,12 +1,12 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger'
 
 export class CatVO {
   @ApiProperty({ description: '名称' })
-  name: string;
+  name: string
 
   @ApiProperty({ description: '年龄' })
-  age: number;
+  age: number
 
   @ApiProperty({ description: '品种' })
-  breed: string;
+  breed: string
 }

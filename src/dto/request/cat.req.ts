@@ -1,5 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsString, Length, IsNotEmpty, IsIn } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger'
+import { IsInt, IsString, Length, IsNotEmpty, IsIn } from 'class-validator'
 
 export class CreateCatReq {
   @Length(2, 8, { message: '名称必须2到8字符' })
@@ -13,7 +13,7 @@ export class CreateCatReq {
     minLength: 2,
     maxLength: 8,
   })
-  name: string;
+  name: string
 
   @IsInt({ message: '年龄必须是数字' })
   @ApiProperty({
@@ -22,7 +22,7 @@ export class CreateCatReq {
     example: 2,
     description: '年龄',
   })
-  age: number;
+  age: number
 
   @IsString({ message: '品种必须是字符' })
   @IsNotEmpty({ message: '品种不可为空' })
@@ -33,5 +33,5 @@ export class CreateCatReq {
     description: '品种',
     enum: ['泰迪', '柯基'],
   })
-  breed: string;
+  breed: string
 }

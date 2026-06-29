@@ -1,7 +1,7 @@
-import { DataSource } from 'typeorm';
-import { Users } from '../entity/user.entity';
-import { ConfigService } from 'src/service/config.service';
-import { OrmLogger } from '../infrastructure/logger/orm.logger';
+import { DataSource } from 'typeorm'
+import { Users } from '../entity/user.entity'
+import { ConfigService } from 'src/service/config.service'
+import { OrmLogger } from '../infrastructure/logger/orm.logger'
 
 export const DatabaseProvider = {
   provide: 'CommonDataSource',
@@ -17,8 +17,8 @@ export const DatabaseProvider = {
       synchronize: true,
       logging: ['query', 'error'],
       logger: new OrmLogger(['query', 'error', 'info', 'warn']),
-    });
-    return AppDataSource.initialize();
+    })
+    return AppDataSource.initialize()
   },
   inject: [ConfigService],
-};
+}

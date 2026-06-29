@@ -1,5 +1,5 @@
-import { Controller, Post } from '@nestjs/common';
-import { UserService } from '../service/user.service';
+import { Controller, Post } from '@nestjs/common'
+import { UserService } from '../service/user.service'
 
 @Controller('user')
 export class UserController {
@@ -7,6 +7,6 @@ export class UserController {
 
   @Post('/queryAllUsers')
   async queryAllUsers() {
-    return await this.userService.findAll();
+    return await this.userService.findAll()
   }
 }

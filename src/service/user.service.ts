@@ -1,6 +1,6 @@
-import { Injectable, Inject } from '@nestjs/common';
-import { FindOptionsSelect, Repository } from 'typeorm';
-import { Users } from '../entity/user.entity';
+import { Injectable, Inject } from '@nestjs/common'
+import { FindOptionsSelect, Repository } from 'typeorm'
+import { Users } from '../entity/user.entity'
 
 @Injectable()
 export class UserService {
@@ -15,9 +15,9 @@ export class UserService {
       username: true,
       email: true,
       company: true,
-    };
+    }
     return await this.userRepository.findAndCount({
       select: options,
-    });
+    })
   }
 }

@@ -1,4 +1,4 @@
 export interface uploadResponse {
-    res: any;
-    err: any;
- }
+  res: any
+  err: any
+}

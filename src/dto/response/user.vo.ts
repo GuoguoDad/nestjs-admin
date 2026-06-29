@@ -1,12 +1,12 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger'
 
 export class LoginUserInfoVO {
   @ApiProperty({ description: '用户Id' })
-  userId: string;
+  userId: string
 
   @ApiProperty({ description: '用户名' })
-  name: string;
+  name: string
 
   @ApiProperty({ description: 'jwt' })
-  token: string;
+  token: string
 }

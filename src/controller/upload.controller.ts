@@ -1,16 +1,10 @@
-import {
-  Controller,
-  Post,
-  UploadedFile,
-  UploadedFiles,
-  UseInterceptors,
-} from '@nestjs/common';
-import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
-import { ApiTags, ApiBody, ApiConsumes, ApiOperation } from '@nestjs/swagger';
+import { Controller, Post, UploadedFile, UploadedFiles, UseInterceptors } from '@nestjs/common'
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express'
+import { ApiTags, ApiBody, ApiConsumes, ApiOperation } from '@nestjs/swagger'
 
-import { FileUploadReq, FilesUploadReq } from '../dto/request/file.upload.req';
-import { UploadService } from '../service/upload.service';
-import { ApiException } from '../infrastructure/exception/api.exception';
+import { FileUploadReq, FilesUploadReq } from '../dto/request/file.upload.req'
+import { UploadService } from '../service/upload.service'
+import { ApiException } from '../infrastructure/exception/api.exception'
 
 @ApiTags('UploadController')
 @Controller('upload')
@@ -25,8 +19,8 @@ export class UploadController {
   })
   @Post('file')
   @UseInterceptors(FileInterceptor('file'))
-  async uploadFile(@UploadedFile() file) {
-    return await this.uploadService.upload(file);
+  async uploadFile(@UploadedFile() file: any) {
+    return await this.uploadService.upload(file)
   }
 
   @ApiOperation({ summary: '多文件上传' })
@@ -39,15 +33,15 @@ export class UploadController {
   @UseInterceptors(FilesInterceptor('files'))
   async uploadFiles(@UploadedFiles() files: any[]) {
     if (files.length === 0) {
-      throw new ApiException('参数有误');
+      throw new ApiException('参数有误')
     }
-    const urls = [];
+    const urls = []
     for (const file of files) {
-      const { err, res } = await this.uploadService.upload(file);
+      const { err, res } = await this.uploadService.upload(file)
       if (!err) {
-        urls.push(res.path);
+        urls.push(res.path)
       }
     }
-    return urls;
+    return urls
   }
 }
