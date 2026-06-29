@@ -8,7 +8,10 @@ const winstonLogger = winston.createLogger({
     new winston.transports.DailyRotateFile({
       filename: 'logs/reqlog_%DATE%.log',
       datePattern: 'YYYY-MM-DD',
-      format: winston.format.combine(winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:SSS' }), winston.format.json({ space: 2 })),
+      format: winston.format.combine(
+        winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:SSS' }),
+        winston.format.json({ space: 2 }),
+      ),
     }),
   ],
 })
