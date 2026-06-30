@@ -6,6 +6,6 @@ export class FileUploadReq {
 }
 
 export class FilesUploadReq {
-  @ApiProperty({ type: 'string', format: 'binary' })
+  @ApiProperty({ type: 'array', items: { type: 'string', format: 'binary' } })
   files: Express.Multer.File[]
 }

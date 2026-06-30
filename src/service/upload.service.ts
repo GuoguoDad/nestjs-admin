@@ -22,7 +22,7 @@ export class UploadService {
         const blockSize = 128
         const nbBlocks = Math.ceil(fileData.length / blockSize)
         for (let i = 0; i < nbBlocks; i += 1) {
-          const currentBlock = fileData.slice(blockSize * i, Math.min(blockSize * (i + 1), fileData.length))
+          const currentBlock = fileData.subarray(blockSize * i, Math.min(blockSize * (i + 1), fileData.length))
           writeImage.write(currentBlock)
         }
         writeImage.end()
