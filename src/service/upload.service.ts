@@ -10,9 +10,9 @@ import { uploadResponse } from './interface/upload.interface'
 export class UploadService {
   upload(file: Express.Multer.File): Promise<uploadResponse> {
     return new Promise((resolve, reject) => {
-      const originalname = Buffer.from(file.originalname, 'latin1').toString('utf8')
-      const name = `${dayjs().format('HHmmssSSS')}-${originalname}`
-      const path = join(__dirname, `../../upload/${dayjs().format('YYYYMMDD')}`, name)
+      const fileName = Buffer.from(file.originalname, 'latin1').toString('utf8')
+      const finalName = `${dayjs().format('HHmmssSSS')}-${fileName}`
+      const path = join(__dirname, `../../upload/${dayjs().format('YYYYMMDD')}`, finalName)
       fse.ensureFileSync(path)
 
       const writeImage = createWriteStream(path)
@@ -32,7 +32,7 @@ export class UploadService {
         reject({ res: null, err })
       })
       writeImage.on('finish', () => {
-        resolve({ res: { path, name }, err: null })
+        resolve({ res: { path, name: finalName }, err: null })
       })
     })
   }

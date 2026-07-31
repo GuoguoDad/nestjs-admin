@@ -33,7 +33,7 @@ export class UploadController {
   @UseInterceptors(FilesInterceptor('files'))
   async uploadFiles(@UploadedFiles() files: Express.Multer.File[]) {
     if (files.length === 0) {
-      throw new ApiException('参数有误')
+      throw new ApiException('上传的文件为空')
     }
     const urls = []
     for (const file of files) {
