@@ -9,7 +9,12 @@ import { LoggingInterceptor } from './infrastructure/logger/logging.interceptor'
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
 
-  const options = new DocumentBuilder().setTitle('admin').setDescription('admin description').setVersion('1.0.0').addBearerAuth().build()
+  const options = new DocumentBuilder()
+    .setTitle('admin')
+    .setDescription('admin description')
+    .setVersion('1.0.0')
+    .addBearerAuth()
+    .build()
   const document = SwaggerModule.createDocument(app, options)
   SwaggerModule.setup('api', app, document)
 
