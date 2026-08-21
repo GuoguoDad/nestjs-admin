@@ -33,7 +33,6 @@
     "dayjs": "^1.11.21",
     "dotenv": "^17.4.2",
     "fs-extra": "^11.4.0",
-    "install": "^0.13.0",
     "nodemailer": "^9.0.3",
     "nodemailer-smtp-transport": "^2.7.4",
     "passport": "^0.7.0",
