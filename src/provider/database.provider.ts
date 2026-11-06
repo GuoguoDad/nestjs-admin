@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm'
 import { Users } from '../entity/user.entity'
-import { ConfigService } from 'src/service/config.service'
+import { ConfigService } from '../service/config.service'
 import { OrmLogger } from '../infrastructure/logger/orm.logger'
 
 export const DatabaseProvider = {
@@ -13,6 +13,7 @@ export const DatabaseProvider = {
       username: config.getString('DB_USER'),
       password: config.getString('DB_PASSWORD'),
       database: config.getString('DB_NAME'),
+      connectTimeoutMS: 15000,
       entities: [Users],
       synchronize: true,
       logging: ['query', 'error'],

@@ -1,5 +1,5 @@
 import { FileLogger } from 'typeorm'
-import { LoggerOptions } from 'typeorm/logger/LoggerOptions'
+import type { LoggerOptions } from 'typeorm'
 
 import * as winston from 'winston'
 import 'winston-daily-rotate-file'

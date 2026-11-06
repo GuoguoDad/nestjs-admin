@@ -7,7 +7,7 @@ export class ResponseErrorExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse()
 
     const message = exception.message || exception.getResponse()
-    const errorCode = (exception as any).errorCode
+    const errorCode = (exception as any).apiCode
     const errorMessage = (exception as any).errorMessage
 
     const status = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR

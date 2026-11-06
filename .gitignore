@@ -3,6 +3,7 @@
 /node_modules
 /build
 /upload
+*.tsbuildinfo
 
 # Logs
 logs
@@ -46,6 +47,9 @@ lerna-debug.log*
 # temp directory
 .temp
 .tmp
+
+# workbuddy workspace data
+.workbuddy/
 
 # Runtime data
 pids

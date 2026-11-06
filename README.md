@@ -6,8 +6,8 @@
 
 | 分类 | 选型 | 说明 |
 | --- | --- | --- |
-| 框架 | NestJS 11 | HTTP 服务框架 |
-| 语言 | TypeScript 5 | 目标 ES2021 / CommonJS |
+| 框架 | NestJS 12 | HTTP 服务框架（ESM-only，CommonJS 产物依赖 Node 22+ 的 `require(esm)`） |
+| 语言 | TypeScript 6 | 目标 ES2021 / CommonJS |
 | ORM | TypeORM 1.x | 使用 `DataSource` API 直连数据库 |
 | 数据库 | PostgreSQL | 依赖驱动 `pg` |
 | 鉴权 | Passport + JWT（`@nestjs/jwt`、`passport-jwt`） | Bearer Token，默认有效期 24h |
@@ -16,6 +16,8 @@
 | 日志 | winston + winston-daily-rotate-file | 按天切割，输出到 `logs/` |
 | 邮件 | nodemailer + nodemailer-smtp-transport | 支持纯文本 / HTML / 附件 |
 | 定时任务 | @nestjs/schedule | 基于 Cron 表达式 |
+| 代码风格 | ESLint 10（flat config）+ Prettier 3 | 配置见 `eslint.config.mjs` |
+| 测试 | Jest 30 + ts-jest | 单测 / e2e |
 | 其他 | dayjs、fs-extra、dotenv、pm2 | 时间与文件处理、进程守护 |
 
 ## 目录结构
@@ -47,6 +49,7 @@ nestjs-admin
 │       ├── logger/             # ORM 日志
 │       ├── pipe/               # 全局校验管道、类型转换管道
 │       └── strategy/           # Passport JWT 策略
+├── eslint.config.mjs           # ESLint 10 flat config
 ├── upload/                     # 上传文件落盘目录（按 YYYYMMDD 分目录）
 ├── logs/                       # 运行日志（reqlog / ormlog，按天切割）
 └── test/                       # e2e 测试
@@ -56,9 +59,9 @@ nestjs-admin
 
 ### 1. 环境要求
 
-- Node.js 18+（推荐 18 LTS）
+- Node.js 22+（NestJS 12 的依赖均为 ESM，需 Node 22 的 `require(esm)` 支持；e2e 测试需 Node 24.9+）
 - PostgreSQL 数据库
-- pnpm（仓库使用 `pnpm-lock.yaml`）
+- pnpm 11（`package.json` 已通过 `packageManager` 锁定 `pnpm@11.5.2`，建议用 corepack 启用）
 
 ### 2. 安装依赖
 
@@ -124,11 +127,13 @@ http://127.0.0.1:3000/api
 
 ```bash
 pnpm test          # 单元测试
-pnpm test:e2e      # e2e 测试
+pnpm test:e2e      # e2e 测试（需 Node 24.9+，脚本已带 --experimental-vm-modules）
 pnpm test:cov      # 覆盖率
-pnpm lint          # ESLint 检查并修复
+pnpm lint          # ESLint 检查并修复（flat config，见 eslint.config.mjs）
 pnpm format        # Prettier 格式化
 ```
+
+> e2e 测试说明：`@nestjs/testing@12` 为 ESM-only。Jest 30 在 Node 22 下无法 `require` ESM 模块，需 Node 24.9+ 才能运行；测试通过 `test/setup-env.ts` 将 `NODE_ENV` 固定为 `dev`，读取 `config/dev.env`。
 
 > 注意：数据库开启了 `synchronize: true`，应用启动时会自动根据实体同步表结构。首次启动需确保 `Users` 实体对应的表可被自动创建，同时对测试环境自行插入一条账号用于登录。
 
@@ -270,7 +275,6 @@ curl -X POST http://127.0.0.1:3000/test/queryAllUsers \
 | 密码以明文形式存储与比对 | `entity/user.entity.ts`、`service/auth.service.ts` | 使用 bcrypt 加盐哈希后比对，且不返回敏感字段 |
 | `EmailService` 中 reject 后仍会继续执行 resolve | `service/email.service.ts` | 在 reject 后 `return`，或改用 async/await 包装 |
 | `config/dev.env` 含真实数据库密码、邮箱授权码 | `config/dev.env` | 移出版本库，替换为 `.env.example` 模板并轮换凭据 |
-| `FileLogger` 在 TypeORM 新版本中已废弃 | `infrastructure/logger/orm.logger.ts` | 迁移到自定义 `Logger` 实现 |
 | 服务端口硬编码为 3000 | `main.ts` | 改为从 `ConfigService` 读取，支持 `process.env.PORT` |
 | `CommonAuthGuard` 与 Passport `AuthGuard()` 功能重复且未被引用 | `infrastructure/gurad/common.auth.guard.ts` | 确认取舍后删除或统一使用 |
 | TypeORM 已通过 DataSource 注册实体，`TypeOrmModule` 未使用 | 全局 | 可考虑迁移到 `@nestjs/typeorm` 以简化 Provider 样板代码 |

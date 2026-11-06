@@ -58,7 +58,7 @@ export class EmailService {
         transporter.sendMail(mailOptions, (err) => {
           if (err) {
             result.httpCode = HttpStatus.INTERNAL_SERVER_ERROR
-            result.message = err
+            result.message = err instanceof Error ? err.message : String(err)
 
             reject(result)
           }
@@ -66,7 +66,7 @@ export class EmailService {
         })
       } catch (err) {
         result.httpCode = HttpStatus.INTERNAL_SERVER_ERROR
-        result.message = err
+        result.message = err instanceof Error ? err.message : String(err)
         reject(result)
       }
     })

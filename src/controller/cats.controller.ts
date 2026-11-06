@@ -4,7 +4,7 @@ import { AuthGuard } from '@nestjs/passport'
 
 import { CatsService } from '../service/cats.service'
 import { CreateCatReq } from '../dto/request/cat.req'
-import { CatVO } from 'src/dto/response/cat.vo'
+import { CatVO } from '../dto/response/cat.vo'
 
 import { ParseIntPipe } from '../infrastructure/pipe/parse.int.pipe'
 
