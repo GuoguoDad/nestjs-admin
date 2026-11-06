@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common'
-import { FindOptionsSelect, Repository } from 'typeorm'
+import { Repository } from 'typeorm'
 import { Users } from '../entity/user.entity'
 
 @Injectable()
@@ -10,14 +10,13 @@ export class UserService {
   ) {}
 
   async findAll() {
-    const options: FindOptionsSelect<Users> = {
-      _id: true,
-      username: true,
-      email: true,
-      company: true,
-    }
     return await this.userRepository.findAndCount({
-      select: options,
+      select: {
+        _id: true,
+        username: true,
+        email: true,
+        company: true,
+      },
     })
   }
 }
